@@ -1,4 +1,4 @@
-ame: React Native CI Build
+name: React Native CI Build
 
 on:
   push:
