@@ -7,12 +7,20 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "build:e2e": "detox build --configuration android.emu.release",
+    "test:e2e": "detox test --configuration android.emu.release"
   },
   "dependencies": {
-    "react": "19.1.0",
+    "@react-native/new-app-screen": "0.80.0",
+    "@react-navigation/native": "^7.1.14",
+    "@react-navigation/stack": "^7.4.2",
+    "react": "^19.1.0",
     "react-native": "0.80.0",
-    "@react-native/new-app-screen": "0.80.0"
+    "react-native-gesture-handler": "^2.27.1",
+    "react-native-reanimated": "^3.18.0",
+    "react-native-safe-area-context": "^5.5.1",
+    "react-native-screens": "^4.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -28,13 +36,27 @@
     "@types/jest": "^29.5.13",
     "@types/react": "^19.1.0",
     "@types/react-test-renderer": "^19.1.0",
+    "detox": "^20.40.2",
     "eslint": "^8.19.0",
-    "jest": "^29.6.3",
+    "jest": "^29.7.0",
     "prettier": "2.8.8",
     "react-test-renderer": "19.1.0",
     "typescript": "5.0.4"
   },
   "engines": {
     "node": ">=18"
+  },
+  "detox": {
+    "testRunner": "jest",
+    "runnerConfig": "e2e/jest.config.js",
+    "configurations": {
+      "android.emu.debug": {
+        "device": {
+          "avdName": "Medium_Phone_API_36.0",
+          "type": "android.emulator"
+        },
+        "app": "android/app/build/outputs/apk/debug/app-debug.apk"
+      }
+    }
   }
 }

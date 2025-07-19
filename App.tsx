@@ -1,28 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+} from 'react-native';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+export default function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const handleLogin = () => {
+    if (username === 'testuser' && password === 'password123') {
+      setLoggedIn(true);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
+      {!loggedIn ? (
+        <>
+          <TextInput
+            testID="username-input"
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+            style={styles.input}
+          />
+          <TextInput
+            testID="password-input"
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+          />
+          <Button
+            testID="login-button"
+            title="Login"
+            onPress={handleLogin}
+          />
+        </>
+      ) : (
+        <View testID="home-screen">
+          <Text>Welcome</Text>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1, justifyContent: 'center', padding: 16 },
+  input: { borderWidth: 1, marginBottom: 10, padding: 10, borderRadius: 5 },
 });
-
-export default App;
